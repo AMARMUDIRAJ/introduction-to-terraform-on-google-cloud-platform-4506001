@@ -25,6 +25,7 @@ resource "google_compute_instance" "web" {
   name         = "web"
   machine_type = "e2-micro"
 
+
   
   boot_disk {
     initialize_params {
@@ -37,5 +38,5 @@ resource "google_compute_instance" "web" {
       # Leave empty for dynamic public IP
     }
   }  
-
+  allow_stopping_for_update = true`
 }
