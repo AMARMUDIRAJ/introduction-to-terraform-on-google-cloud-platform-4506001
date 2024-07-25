@@ -28,7 +28,7 @@ resource "google_compute_instance" "app" {
     }
   }
   network_interface {
-   subnetwork = google_compute_subnetwork.app.name
+   subnetwork = google_compute_subnetwork.app-subnet.name
    access_config {
       # Leave empty for dynamic public IP
     }
