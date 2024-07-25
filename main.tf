@@ -3,7 +3,7 @@ module "app_network" {
   version = "9.1.0"
 
 
-  name = "${var.network_name}-network"
+  network_name = "${var.networks_name}-network"
   project_id = var.project_id
   subnets = [
       {
@@ -15,10 +15,10 @@ module "app_network" {
 
   ingress_rules = [
     {
-          name                    = "${var.network_name}-web_rule"
+          name                    = "${var.networks_name}-web_rule"
           description             = "Inbound Rule"
           source_ranges           = ["0.0.0.0/0"]
-          target_tags             = ["${var.network_name}-web"]
+          target_tags             = ["${var.networks_name}-web"]
     
     allow = [
           {
@@ -42,7 +42,7 @@ resource "google_compute_instance" "app" {
   name         = var.app_name
   machine_type = var.machine_type
 
-  tags = ["${var.network_name}-web"]
+  tags = ["${var.networks_name}-web"]
 
   
   boot_disk {
@@ -58,6 +58,6 @@ resource "google_compute_instance" "app" {
   }  
 
   metadata_startup_script = "apt -y update; apt -y install nginx; echo ${var.app_name} > /var/www/html/index.html"
-  
+
   allow_stopping_for_update = true
 }

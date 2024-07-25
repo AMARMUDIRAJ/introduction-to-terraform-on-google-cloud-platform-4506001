@@ -9,7 +9,7 @@ variable "region" {
     default = "us-west1"
 }
 
-variable "network_name" {
+variable "networks_name" {
     type    = string
     default = "app"
 }
