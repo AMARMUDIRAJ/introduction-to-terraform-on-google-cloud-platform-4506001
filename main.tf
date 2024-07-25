@@ -17,14 +17,15 @@ module "app_network" {
     {
           name                    = "${var.networks_name}-web"
           description             = "Inbound Rule"
+
           source_ranges           = ["0.0.0.0/0"]
           target_tags             = ["${var.networks_name}-web"]
     
-    allow = [
-          {
-            protocol = "tcp"
-            ports    = ["80", "443"]
-          }
+          allow = [
+              {
+                protocol = "tcp"
+                ports    = ["80", "443"]
+              }
       ]
     }
   ]
