@@ -6,7 +6,7 @@ data "google_compute_image" "ubuntu" {
 
 resource "google_compute_network" "app" {
   name                      = var.network_name
-  auto_create_subnetwork    = false 
+  auto_create_subnetworks    = false 
 }
 
 resource "google_compute_subnetwork" "app-subnet" {
