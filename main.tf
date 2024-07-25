@@ -15,7 +15,7 @@ module "app_network" {
 
   ingress_rules = [
     {
-          name                    = "${var.networks_name}-web_rule"
+          name                    = "${var.networks_name}-web"
           description             = "Inbound Rule"
           source_ranges           = ["0.0.0.0/0"]
           target_tags             = ["${var.networks_name}-web"]
