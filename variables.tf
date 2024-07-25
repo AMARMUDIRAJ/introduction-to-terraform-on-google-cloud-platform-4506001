@@ -45,10 +45,3 @@ variable "machine_type" {
     type    = string
     default = "e2-micro"
 }
-
-
-data "google_compute_image" "ubuntu" {
-  most_recent = true
-  project     = "ubuntu-os-cloud" 
-  family      = "ubuntu-2204-lts"
-}
