@@ -38,22 +38,12 @@ data "google_compute_image" "ubuntu" {
   family                      = var.image_family
 }
 
-resource "google_compute_network" "app" {
-  name                      = var.network_name
-  auto_create_subnetworks    = false 
-}
-
-resource "google_compute_subnetwork" "app-subnet" {
-  name          = var.subnet_name
-  ip_cidr_range = var.network_ip_range
-  region        = var.region
-  network       = google_compute_network.app.id
-}
-
 
 resource "google_compute_instance" "app" {
   name         = var.app_name
   machine_type = var.machine_type
+
+  tags = ["${var.network_name}-web"]
 
   
   boot_disk {
@@ -67,6 +57,6 @@ resource "google_compute_instance" "app" {
       # Leave empty for dynamic public IP
     }
   }  
-
+  metadata_startup_script = "apt -y update; apt -y install nginx; echo ${var.app_name} > /var/www/html/index.html"
   allow_stopping_for_update = true
 }
