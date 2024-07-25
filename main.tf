@@ -34,5 +34,5 @@ resource "google_compute_instance" "app" {
     }
   }  
 
-  all_stopping_for_update = true
+  allow_stopping_for_update = true
 }
