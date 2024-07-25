@@ -1,3 +1,37 @@
+module "app_network" {
+  source  = "terraform-google-modules/network/google"
+  version = "9.1.0"
+  # insert the 3 required variables here
+  name = "${var.network_name}-netowrk"
+  project = var.project_id
+  subnet = [
+    {
+
+        subnet_name           = "${var.network_name}-subnet1"
+        subnet_ip             = var.network_ip_range
+        subnet_region         = var.region
+  }
+  ]
+
+  ingress_rules = [
+    {
+    name                    = "${var.network_name}-web_rule"
+    description             = "Inbound Rule"
+    source_ranges           = ["0.0.0.0/0"]
+    target_tags             = ["${var.network_name}-web"]
+  
+    allow = [
+      {
+        protocol = "tcp"
+        ports    = ["80", "443"]
+      }
+    ]
+
+    }
+  ]
+}
+
+
 data "google_compute_image" "ubuntu" {
   most_recent                 = true
   project                     = var.image_project
@@ -28,7 +62,7 @@ resource "google_compute_instance" "app" {
     }
   }
   network_interface {
-   subnetwork = google_compute_subnetwork.app-subnet.name
+   subnetwork = module.app_network.subnets_names[0]
    access_config {
       # Leave empty for dynamic public IP
     }
